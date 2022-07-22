@@ -2,7 +2,6 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-
 def send_forgot_password_email(request,token,email, type):
     subject='Your forgot Password link from StudyBuddy'
     domain=request.META['HTTP_HOST']
@@ -24,7 +23,7 @@ def send_forgot_password_email(request,token,email, type):
 def account_activation_email(request,token,uidb64, email):
     subject='Your email verification mail from StudyBuddy'
     domain=request.META['HTTP_HOST']
-    mail_content=f'Hi,click on the link to change your password {domain}/activate/{uidb64}/{token}/'
+    mail_content=f'Welcome, please click on the link to verify your email {domain}/activate/{uidb64}/{token}/'
     msg = MIMEMultipart()
     msg["Subject"]=subject
     msg["From"]="sudskhokhar1@zohomail.in"
