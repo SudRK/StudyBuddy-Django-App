@@ -92,27 +92,27 @@ WSGI_APPLICATION = 'studybud.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         # 'ENGINE': 'django.db.backends.sqlite3',
-#         # 'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-# Transfering database from Django to PostgreSQL
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'studybudi',
-        'USER': 'postgres',
-        'PASSWORD': '1234',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
+# Transfering database from Django to PostgreSQL
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'studybudi',
+#         'USER': 'postgres',
+#         'PASSWORD': '1234',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
 
-# DATABASES['default'] = dj_database_url.parse('postgres://qtmzhqrnvjgkdk:c8d0f24214729bfe0e2615c2ac3748712e23001924eb68046208ff9876cc6823@ec2-23-23-182-238.compute-1.amazonaws.com:5432/d50m734v44d770', conn_max_age=600)
+
+DATABASES['default'] = dj_database_url.parse('postgres://qtmzhqrnvjgkdk:c8d0f24214729bfe0e2615c2ac3748712e23001924eb68046208ff9876cc6823@ec2-23-23-182-238.compute-1.amazonaws.com:5432/d50m734v44d770', conn_max_age=600)
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
