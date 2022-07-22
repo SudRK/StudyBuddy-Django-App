@@ -103,10 +103,10 @@ WSGI_APPLICATION = 'studybud.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd6561ns36kfmm8',
-        'USER': 'pvhnpkrdhsmbbp',
-        'PASSWORD': 'faa4afe76b4fa29bcbfbe603697d560c8c673ba56b17a592660e29e1cc254dc0',
-        'HOST': 'ec2-107-22-122-106.compute-1.amazonaws.com',
+        'NAME': 'studybudi',
+        'USER': 'postgres',
+        'PASSWORD': '1234',
+        'HOST': 'localhost',
         'PORT': '5432',
     }
 }
