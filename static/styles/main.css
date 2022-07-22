@@ -1,0 +1,16 @@
+
+.alert-danger {
+        background-color: #a23636e6;
+        border-radius: 5px;
+        padding: 5px;
+}
+
+.errorlist {
+    list-style-type: none;
+}
+
+.alert-success {
+    background-color: #036d3cd6;
+    border-radius: 5px;
+    padding: 5px;
+}
