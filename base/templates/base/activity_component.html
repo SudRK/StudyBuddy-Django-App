@@ -9,7 +9,7 @@
                 <div class="avatar avatar--small">
                     <img src="{{message.user.avatar.url}}" />
                 </div>
-                <p>
+                <p style="overflow: hidden; text-overflow: ellipsis; width: 150px; white-space: nowrap;" title='{{message.user}}'>
                     @{{message.user}}
                     <span>{{message.created|timesince}} ago</span>
                 </p>
