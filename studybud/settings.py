@@ -46,8 +46,18 @@ INSTALLED_APPS = [
     
     'rest_framework',
     'corsheaders',
+    'cloudinary_storage',
+    'cloudinary',
     # 'verify_email.apps.VerifyEmailConfig',
 ]
+
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'damkb6my7',
+    'API_KEY': '668429339313813',
+    'API_SECRET': 'eD_S5etp7Nn3l7gLzd2hDK3UPEc'
+}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -149,14 +159,18 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
 
-MEDIA_URL = '/images/'
+# MEDIA_URL = '/images/'
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 STATIC_ROOT = BASE_DIR / 'staticfiles/'
 MEDIA_ROOT = BASE_DIR / 'static/images'
+
+MEDIA_URL = '/media/'  # or any prefix you choose
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field

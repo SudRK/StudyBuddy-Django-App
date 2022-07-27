@@ -44,7 +44,6 @@ def loginPage(request):
         status = True
         try:
             user = User.objects.get(email=email)
-            print(user.is_active)
             if user.is_active != True:
                 status = False
                 messages.error(request, f'Oops, {user.email} not verified, so please verify your email!')
@@ -79,7 +78,8 @@ def register(request):
             token = account_activation_token.make_token(user)
             uid = urlsafe_base64_encode(force_bytes(user.pk))
             account_activation_email(request=request, email=user.email, token=token, uidb64=uid)
-            messages.success(request, 'Form submission successful, please check your email')
+            # messages.success(request, 'Form submission successful, please check your email')
+            return render(request, 'base/email_active_sent.html')
         else:
             messages.error(request, form.errors)
             form = MyUserCreationForm()

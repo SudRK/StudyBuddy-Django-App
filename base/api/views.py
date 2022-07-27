@@ -15,6 +15,8 @@ def getRoutes(request):
     ]
     return Response(routes)
 
+# Serializer will retrieve room data or create new room if not found as soon as it enters in elif statement.
+
 @api_view(['GET'])
 def getRooms(request):
     # rooms = Room.objects.all()
@@ -31,7 +33,6 @@ def getRooms(request):
             return Response(serializer.data, status=status_HTTP_200_CREATED)
         return Response(serializer.error, status.HTTP_400_BAD_REQUEST)
 
-# Above serializer will retrieve room data or create new room if not found as soon as it enters in elif statement.
 
 @api_view(['GET'])
 def getRoom(request, pk):

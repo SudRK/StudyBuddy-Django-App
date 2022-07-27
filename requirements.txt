@@ -9,3 +9,4 @@ django-utils-six
 Django-Verify-Email
 psycopg2
 dj-database-url
+cloudinary
