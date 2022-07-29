@@ -1,3 +1,5 @@
+import email
+from urllib import request
 from django.contrib.auth.models import User
 from pydoc_data.topics import topics
 from django.shortcuts import render, redirect
@@ -7,7 +9,7 @@ from .forms import RoomForm, UserForm, MyUserCreationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import get_user_model
 
 # imported for password change
@@ -28,6 +30,11 @@ from .token import account_activation_token
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 from verify_email.email_handler import send_verification_email
+
+from base import token
+
+# imported for resending email
+# from .forms import ResendActivationEmailForm
 
 # Create your views here.
 
@@ -85,6 +92,20 @@ def register(request):
             form = MyUserCreationForm()
     return render(request, 'base/login_register.html', {'form':form})
 
+# view for resending verification email
+def ResendMail(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        user=User.objects.get(email=email)
+        if not user:
+            messages.error(request,"Please register your email address!")
+        token = account_activation_token.make_token(user)
+        print(token)
+        uid = urlsafe_base64_encode(force_bytes(user.pk))
+        account_activation_email(request=request, email=email, token=token, uidb64=uid)
+        return HttpResponse('Please check your email for verification mail.')
+    return render(request, 'base/email_active_sent.html')
+
 # View for account activation
 def Activate(request, uidb64, token):
     User = get_user_model()
@@ -100,6 +121,7 @@ def Activate(request, uidb64, token):
         return redirect('login')
     else:
         return
+
 
 def logoutUser(request):
     logout(request)

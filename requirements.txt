@@ -10,3 +10,4 @@ Django-Verify-Email
 psycopg2
 dj-database-url
 cloudinary
+django-cloudinary-storage

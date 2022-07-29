@@ -49,3 +49,6 @@ class ChangePasswordCustomForm(forms.Form):
                 )
         password_validation.validate_password(password2)
         return password2
+    
+# class ResendEmail(ResendActivationEmailForm):
+#     email = forms.EmailField(required=True)

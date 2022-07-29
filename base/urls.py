@@ -26,4 +26,5 @@ urlpatterns = [
     path('sendemail/', views.sendemail, name="sendemail"),
     path('change_password/<str:token>', views.Change_password, name="changepassword"),
     path('activate/<str:uidb64>/<str:token>/', views.Activate, name='activate'),
+    path('resendmail/', views.ResendMail, name='resendmail'),
 ]

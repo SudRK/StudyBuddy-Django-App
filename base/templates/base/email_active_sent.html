@@ -1,30 +1,31 @@
 {% extends 'main.html' %}
-{% load static %}
-
 {% block content %}
-
-{% endblock content %}
-
-
   <main class="auth layout" style="margin-top: 0px;">
-      <div class="container">
-        <div class="layout__box">
-          <div class="layout__boxHeader">
-            <div class="layout__boxTitle">
-              <h3>Email Registration Verification</h3>
-            </div>
+    <div class="container">
+      <div class="layout__box">
+        <div class="layout__boxHeader">
+          <div class="layout__boxTitle">
+            <h3>Email Registration Verification</h3>
           </div>
-          <div class="layout__body">
-            <h2 class="auth__tagline">Email Registration</h2>
-            <p>Hi {{user.username}}, please check your inbox for the verification email.</p>
-            <form class="form" action="" method="POST">
-              {% csrf_token %}
-              <div class="auth__action">
-                <p>Haven't received mail yet? Please click on Resend Mail.</p>
-                <a href="{% url 'register' %}" class="btn btn--link">Resend Mail</a>
-              </form>
-            </div>
+        </div>
+        <div class="layout__body">
+          <h2 class="auth__tagline">Email Registration</h2>
+          <p style="text-align: center;">Hi, please check your inbox for the verification email on.</p>
+          <form class="form" action="" method="POST">
+            {% csrf_token %}
+            <div class="auth__action">
+              <div class="form__group form__group">
+                <label for="room_name">Email</label>
+                <input id="username" name="email" type="text" placeholder="Email" required/>
+              </div>
+              <p>Haven't received mail yet? Please click on Resend Mail.</p>
+              <button class="btn btn--main" type="submit">
+                Send Email
+          </button>
+          </form>
           </div>
         </div>
       </div>
+    </div>
   </main>
+{% endblock content %}
