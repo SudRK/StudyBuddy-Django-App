@@ -148,7 +148,7 @@
       </div>
     {% endif %}
   </main>
-  <script>
+  {% comment %} <script>
 localStorage.clear()
 document.querySelector('#email').addEventListener('change',(event) => {
 
@@ -158,5 +158,5 @@ document.querySelector('#email').addEventListener('change',(event) => {
 
 
 
-  </script>
+  </script> {% endcomment %}
 {% endblock content %}

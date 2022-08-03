@@ -18,18 +18,18 @@
                 <label for="room_name">Email</label>
                 <input id="username" name="email" type="text" placeholder="Email" required/>
               </div> {% endcomment %}
-              <p>Haven't received mail yet? Please click on <a href="{% url 'resendmail' %}" onclick="location.href=this.href+'?email='+emailverify;return false;">Resend Email</a>.</p>
-              <p  id="testemail"></p>
+              <p>Haven't received mail yet? Please click on <a href="{% url 'resendmail' %}?email={{email}}">Resend Email</a>.</p>
+              <p>{{email}}</p>
           </form>
           </div>
         </div>
       </div>
     </div>
   </main>
-  <script>
+  {% comment %} <script>
   
   let emailverify = localStorage.getItem("email");
   console.log("Hiiiiiiiii**********", emailverify);
   document.getElementById("testemail").innerHTML = emailverify;
-  </script>
+  </script> {% endcomment %}
 {% endblock content %}

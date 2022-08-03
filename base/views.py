@@ -60,7 +60,7 @@ def loginPage(request):
                 uid = urlsafe_base64_encode(force_bytes(user.pk))
                 account_activation_email(request=request, email=user.email, token=token, uidb64=uid)
                 # messages.error(request, f'Oops, {user.email} not verified, so please verify your email! To Resend email please click here')
-                return render(request, 'base/email_active_sent.html')
+                return render(request, 'base/email_active_sent.html', {'email':user.email})
         except:
             messages.error(request, 'User does not exist!')
         user = authenticate(request, email=email, password=password)
@@ -91,7 +91,7 @@ def register(request):
             uid = urlsafe_base64_encode(force_bytes(user.pk))
             account_activation_email(request=request, email=user.email, token=token, uidb64=uid)
             # messages.success(request, 'Form submission successful, please check your email')
-            return render(request, 'base/email_active_sent.html')
+            return render(request, 'base/email_active_sent.html',{"email":user.email})
         else:
             messages.error(request, form.errors)
             form = MyUserCreationForm()
