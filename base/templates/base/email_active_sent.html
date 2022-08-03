@@ -14,18 +14,22 @@
           <form class="form" action="" method="POST">
             {% csrf_token %}
             <div class="auth__action">
-              <div class="form__group form__group">
+              {% comment %} <div class="form__group form__group">
                 <label for="room_name">Email</label>
                 <input id="username" name="email" type="text" placeholder="Email" required/>
-              </div>
-              <p>Haven't received mail yet? Please click on Resend Mail.</p>
-              <button class="btn btn--main" type="submit">
-                Send Email
-          </button>
+              </div> {% endcomment %}
+              <p>Haven't received mail yet? Please click on <a href="{% url 'resendmail' %}" onclick="location.href=this.href+'?email='+emailverify;return false;">Resend Email</a>.</p>
+              <p  id="testemail"></p>
           </form>
           </div>
         </div>
       </div>
     </div>
   </main>
+  <script>
+  
+  let emailverify = localStorage.getItem("email");
+  console.log("Hiiiiiiiii**********", emailverify);
+  document.getElementById("testemail").innerHTML = emailverify;
+  </script>
 {% endblock content %}

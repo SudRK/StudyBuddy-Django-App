@@ -73,4 +73,3 @@ function myFunction() {
   const element = document.getElementById("error");
   element.remove();
 }
-

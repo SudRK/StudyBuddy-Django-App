@@ -21,7 +21,7 @@
             {% if messages %}
               {% for message in messages %}
                 {% if message.tags == "error" %}
-                  <div class="alert-danger" id="error" onclick="myFunction()">{{ message }}</div>
+                  <div class="alert-danger" id="error" onclick="myFunction()">{{ message }} </div>
                 {% else %}
                   <div class="alert-success" id="error" onclick="myFunction()">{{ message }}</div>
                 {% endif %}
@@ -31,21 +31,15 @@
               {% csrf_token %}
               <div class="form__group form__group">
                 <label for="room_name">Email</label>
-                <input id="username" name="email" type="text" placeholder="Email" />
+                <input id="username" name="email" type="text" placeholder="Email" required />
               </div>
               <div class="form__group">
                 <label for="password">Password</label>
-                <input id="password" name="password" type="password" placeholder="Password"/>
+                <input id="password" name="password" type="password" placeholder="Password" required />
                 <i class="far fa-eye"
                    id="togglePassword"
                    onclick="showpassword()"
-                   style="cursor: pointer;
-                          float: right;
-                          margin-left: -25px;
-                          margin-top: 15px;
-                          right: 10px;
-                          position: relative;
-                          z-index: 2;"></i>
+                   style="cursor: pointer; float: right; margin-left: -25px; margin-top: 15px; right: 10px; position: relative; z-index: 2;"></i>
               </div>
               <div style="display: flex; justify-content:space-between; align-items:center">
                 <button class="btn btn--main" type="submit">
@@ -95,12 +89,39 @@
             {% endif %}
             <form class="form" action="" method="POST">
               {% csrf_token %}
-              {% for field in form %}
+              {% comment %} {% for field in form %}
                 <div class="form__group form__group">
                   <label for="room_name">{{ field.label }}</label>
                   {{ field }}
                 </div>
-              {% endfor %}
+              {% endfor %} {% endcomment %}
+
+              <div class="form__group">
+                <label for="room_name">Name</label>
+                <input id="name" name="name" type="text" placeholder="Name" required autofocus />
+              </div>
+              
+              <div class="form__group">
+                <label for="room_name">Username</label>
+                <input id="username" name="username" type="text" placeholder="Username" required />
+              </div>
+              
+
+              <div class="form__group">
+                <label for="room_name">Email</label>
+                <input id="email" name="email" type="text" placeholder="Email" required />
+              </div>
+              
+              <div class="form__group">
+                <label for="password">Password</label>
+                <input id="password1" name="password1" type="password" placeholder="Password" required />
+              </div>
+
+              <div class="form__group">
+                <label for="password">Confirm Password</label>
+                <input id="password2" name="password2" type="password" placeholder="Confirm Password" required />
+              </div>
+
               <button class="btn btn--main" type="submit">
                 <svg version="1.1"
                      xmlns="http://www.w3.org/2000/svg"
@@ -127,4 +148,15 @@
       </div>
     {% endif %}
   </main>
+  <script>
+localStorage.clear()
+document.querySelector('#email').addEventListener('change',(event) => {
+
+  localStorage.setItem('email', event.target.value);
+
+});
+
+
+
+  </script>
 {% endblock content %}

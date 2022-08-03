@@ -1,4 +1,5 @@
 import email
+from multiprocessing import context
 from urllib import request
 from django.contrib.auth.models import User
 from pydoc_data.topics import topics
@@ -41,7 +42,8 @@ from base import token
 User=get_user_model()
 def loginPage(request):
     page = 'login'
-    
+    # user = User.objects.get(email=email)
+    # email = request.POST.get('email')
     # if request.user.is_authenticated:
     #     return redirect('home')
     
@@ -49,11 +51,16 @@ def loginPage(request):
         email = request.POST.get('email').lower()
         password = request.POST.get('password')
         status = True
+        
         try:
             user = User.objects.get(email=email)
             if user.is_active != True:
                 status = False
-                messages.error(request, f'Oops, {user.email} not verified, so please verify your email!')
+                token = account_activation_token.make_token(user)
+                uid = urlsafe_base64_encode(force_bytes(user.pk))
+                account_activation_email(request=request, email=user.email, token=token, uidb64=uid)
+                # messages.error(request, f'Oops, {user.email} not verified, so please verify your email! To Resend email please click here')
+                return render(request, 'base/email_active_sent.html')
         except:
             messages.error(request, 'User does not exist!')
         user = authenticate(request, email=email, password=password)
@@ -65,6 +72,7 @@ def loginPage(request):
         else:
             if status == True:
                 messages.error(request, 'Username or Password are incorrect!')
+        
     context = {'page': page}
     return render(request, 'base/login_register.html', context)
 
@@ -78,9 +86,6 @@ def register(request):
         if form.is_valid():
             user = form.save(commit=False)
             user.save()
-            # login(request, user)
-            # return redirect('login')
-            
             # to get the domain of the current site
             token = account_activation_token.make_token(user)
             uid = urlsafe_base64_encode(force_bytes(user.pk))
@@ -91,20 +96,6 @@ def register(request):
             messages.error(request, form.errors)
             form = MyUserCreationForm()
     return render(request, 'base/login_register.html', {'form':form})
-
-# view for resending verification email
-def ResendMail(request):
-    if request.method == 'POST':
-        email = request.POST.get('email')
-        user=User.objects.get(email=email)
-        if not user:
-            messages.error(request,"Please register your email address!")
-        token = account_activation_token.make_token(user)
-        print(token)
-        uid = urlsafe_base64_encode(force_bytes(user.pk))
-        account_activation_email(request=request, email=email, token=token, uidb64=uid)
-        return HttpResponse('Please check your email for verification mail.')
-    return render(request, 'base/email_active_sent.html')
 
 # View for account activation
 def Activate(request, uidb64, token):
@@ -121,6 +112,20 @@ def Activate(request, uidb64, token):
         return redirect('login')
     else:
         return
+
+# view for resending verification email
+def ResendMail(request):
+    email=request.GET.get("email")
+    user=User.objects.get(email=email)
+    # if not user:
+    #     messages.error(request,"Please register your email address!")
+    token = account_activation_token.make_token(user)
+    uid = urlsafe_base64_encode(force_bytes(user.pk))
+    account_activation_email(request=request, email=email, token=token, uidb64=uid)
+    context = {'email':user.email}
+    # return HttpResponse('Please check your mail inbox for verification mail.')
+    return render(request, 'base/email_active_sent.html', context)
+
 
 
 def logoutUser(request):
@@ -316,3 +321,7 @@ def Change_password(request,token):
     return render(request, 'base/reset_password.html', {
         'form': form
     })
+    
+    
+
+    
