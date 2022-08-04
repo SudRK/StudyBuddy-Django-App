@@ -79,6 +79,7 @@ ROOT_URLCONF = 'studybud.urls'
 
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'login'
+PASSWORD_RESET_TIMEOUT = 1
 
 TEMPLATES = [
     {

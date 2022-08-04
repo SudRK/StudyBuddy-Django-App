@@ -23,14 +23,10 @@ from .helpers import account_activation_email
 from .forms import ChangePasswordCustomForm
 
 # imported for registration email verification
-from django.contrib.sites.shortcuts import get_current_site
-from django.template.loader import render_to_string
 from django.contrib.auth.models import User
-from django.core.mail import EmailMessage
 from .token import account_activation_token
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
-from verify_email.email_handler import send_verification_email
 from base import token
 
 # imported for resending email
@@ -44,7 +40,7 @@ def loginPage(request):
     # if request.user.is_authenticated:
     #     return redirect('home')
     if request.method == 'POST':
-        email = request.POST.get('email').lower()
+        email = request.POST.get('email')
         password = request.POST.get('password')
         status = True
         try:
