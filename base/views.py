@@ -31,7 +31,6 @@ from .token import account_activation_token
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 from verify_email.email_handler import send_verification_email
-
 from base import token
 
 # imported for resending email
@@ -42,19 +41,15 @@ from base import token
 User=get_user_model()
 def loginPage(request):
     page = 'login'
-    # user = User.objects.get(email=email)
-    # email = request.POST.get('email')
     # if request.user.is_authenticated:
     #     return redirect('home')
-    
     if request.method == 'POST':
         email = request.POST.get('email').lower()
         password = request.POST.get('password')
         status = True
-        
         try:
             user = User.objects.get(email=email)
-            if user.is_active != True:
+            if user.is_active is not True:
                 status = False
                 token = account_activation_token.make_token(user)
                 uid = urlsafe_base64_encode(force_bytes(user.pk))
@@ -65,21 +60,18 @@ def loginPage(request):
             messages.error(request, 'User does not exist!')
         user = authenticate(request, email=email, password=password)
         if user is not None:
-            
             login(request, user)
             #request.session.set_expiry(600) #Expire session in 10 minutes.
-            return redirect('home') 
+            return redirect('home')
         else:
-            if status == True:
+            if status is True:
                 messages.error(request, 'Username or Password are incorrect!')
-        
-    context = {'page': page}
-    return render(request, 'base/login_register.html', context)
+    page_context = {'page': page}
+    return render(request, 'base/login_register.html', page_context)
 
 def register(request):
     page = 'register'
     form = MyUserCreationForm()
-
     if request.method == 'POST':
         # save form in the memory and not in the database
         form = MyUserCreationForm(request.POST)
@@ -91,7 +83,7 @@ def register(request):
             uid = urlsafe_base64_encode(force_bytes(user.pk))
             account_activation_email(request=request, email=user.email, token=token, uidb64=uid)
             # messages.success(request, 'Form submission successful, please check your email')
-            return render(request, 'base/email_active_sent.html',{"email":user.email})
+            return render(request, 'base/email_active_sent.html', {"email":user.email})
         else:
             messages.error(request, form.errors)
             form = MyUserCreationForm()
@@ -125,7 +117,6 @@ def ResendMail(request):
     context = {'email':user.email}
     # return HttpResponse('Please check your mail inbox for verification mail.')
     return render(request, 'base/email_active_sent.html', context)
-
 
 
 def logoutUser(request):
