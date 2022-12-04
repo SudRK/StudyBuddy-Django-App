@@ -104,8 +104,8 @@ WSGI_APPLICATION = 'studybud.wsgi.application'
 
 DATABASES = {
     'default': {
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
@@ -122,7 +122,7 @@ DATABASES = {
 # }
 
 
-DATABASES['default'] = dj_database_url.parse('postgres://ezwqaxarvnejre:31a285c6685c3d20a777713c1fc2b5ee06a4df4e3c2bbda045a53b56baed32a0@ec2-34-235-198-25.compute-1.amazonaws.com:5432/d7457brhjqtkk7', conn_max_age=600)
+# DATABASES['default'] = dj_database_url.parse('postgres://ezwqaxarvnejre:31a285c6685c3d20a777713c1fc2b5ee06a4df4e3c2bbda045a53b56baed32a0@ec2-34-235-198-25.compute-1.amazonaws.com:5432/d7457brhjqtkk7', conn_max_age=600)
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
